@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>招商加盟</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #ss{
+            width: 100%;
+        }
+
+
+        ul>li{
+            list-style: none;
+        }
+        .h_date{
+            overflow: hidden;
+            -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none;
+
+        }
+        .h_date .h_month_outer{
+            overflow: hidden;
+            zoom: 1;
+            position: relative;
+            width: 1200%;
+            transition: all .25s ease-in-out;
+        }
+        .h_date .h_month_outer>li{
+            float: left;
+            padding: 0 10px;
+            /*margin: 10px;*/
+            box-sizing: border-box;
+            border-radius: 8px 8px 0 0;
+            /*border: 1px solid #3598dc;*/
+            width: 8.333333333333%;
+        }
+        .h_date .h_month_outer .h_month{
+            text-align: center;
+            padding: 10px 0;
+            background: #3598dc;
+            font-size: 16px;
+            color: #fff;
+            border-radius: 8px 8px 0 0;
+        }
+        .h_date .h_month_outer .h_day_outer{
+            padding: 10px;
+            display: flex;
+            display: -webkit-flex;
+            display: -moz-flex;
+            display: -o-flex;
+            justify-content: space-between;
+        }
+        .h_date .h_month_outer .h_day_outer .h_day{
+            background: #3598dc;
+            border-radius: 50%;
+            width: 2.7vw;
+            height: 2.7vw;
+            font-size: .9vw;
+            color: #fff;
+            text-align: center;
+            line-height: 2.7vw;
+            cursor: pointer;
+            border: 1px solid #3598dc;
+        }
+        .h_date .h_month_outer .h_day_outer .h_day:hover{
+            background: #3379b5;
+        }
+        .h_date .h_month_outer .h_day_outer .h_day.active{
+            background: #F3565D;
+            border: 1px solid #F3565D;
+        }
+        .h_date .h_month_outer .h_day_outer .h_day.active:hover{
+            background: #cb5a5e;
+        }
+
+        /* 左右手 */
+        .h_leftBar,.h_rightBar{
+            position: absolute;
+            top:4px;
+            /*left: 8px;*/
+            width: 31px;
+            height: 31px;
+            border-radius: 50%;
+            background: rgba(0,0,0,.2);
+            cursor: pointer;
+            z-index: 1;
+        }
+        .h_leftBar{
+            left: 18px;
+        }
+        .h_rightBar{
+            right:18px;
+        }
+        .h_leftBar span,.h_rightBar span{
+            display: inline-block;
+            width: 13px;
+            height: 13px;
+            margin-top:9px;
+            background: transparent;
+            border-top: 1px solid #fff;
+            border-left: 1px solid #fff;
+
+        }
+        .h_leftBar span{
+            margin-left: 10px;
+            transform: rotate(-45deg);
+        }
+        .h_rightBar span{
+            margin-left: 4px;
+            transform: rotate(135deg);
+        }
+        .h_leftBar:hover,.h_rightBar:hover{
+            background: rgba(0,0,0,.4);
+        }
+
+        .h_selectYear{
+            position: absolute;
+            top:8px;
+            left: 80px;
+            z-index: 1;
+
+        }
+        .h_selectYear select{
+            width: 100px;
+            height: 25px;
+            border: 1px solid #bebebe;
+            border-radius: 5px;
+            padding-left: 8px;
+            box-sizing: border-box;
+        }
+        .h_btn_s{
+            position: absolute;
+            right:80px;
+            top:6px;
+            z-index: 1;
+            /*background: #000;*/
+        }
+        .h_btn{
+            display: inline-block;
+            margin-bottom: 0;
+            font-weight: 400;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-image: none;
+            border-radius: 4px;
+            border-width: 0;
+            outline: none !important;
+            filter: none;
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+            text-shadow: none;
+            padding: 5px 10px;
+            font-size: 12px;
+            line-height: 1.5;
+            margin-left: 5px;
+        }
+        .h_btn.green{
+            background: #26a69a;
+            color: #fff;
+        }
+        .h_btn.green:hover,.h_btn.green.active{
+            background: #179d81;
+            color: #fff;
+        }
+        .h_btn.purple{
+            background: #8e5fa2;
+            color: #fff;
+        }
+        .h_btn.purple:hover,.h_btn.purple.active{
+            background: #7a518c;
+        }
+        .h_btn.yellow{
+            background: #f3c200;
+            color: #fff;
+        }
+        .h_btn.yellow:hover,.h_btn.yellow.active{
+            background: #cfa500;
+        }
+        .h_btn.default{
+            background: #E5E5E5;
+            color: #333;
+        }
+        .h_btn.default:hover,.h_btn.default.active{
+            background: lightgray;
+        }
+        .h_btn.def{
+            color: #333;
+            background-color: #fff;
+            border-color: #ccc;
+            border-width: 1px;
+        }
+        .h_btn.def:hover,.h_btn.default.active{
+            color: #333;
+            background-color: #ededed;
+            border-color: #b3b3b3;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="" id="ss"></div>
+
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+
+
+
+
+
+
+
+
+    ;(function () {
+        var _this = null,   // 执行的元素
+            option = {},     // 传递配置
+            dateList = {},   // 储存所有日期
+            HTML = $('<div class="h_date"></div>'),    // 日历外层
+            checked = [],    // 被选中的日历
+            selectMore = false,                        // 是否开启多选
+            // 多选
+            cheAry =    [],  // 多选时 储存多选的区间范围
+            isCheck = true,  // 多选时 判断是选择还是清除
+            // 切换月份
+            side = 0;        // 计数器
+
+        /**
+         * H_date
+         */
+        var H_date = function (ele,opt) {
+            var defineOpt = {
+                slideBar:true,
+                selectMore:true,
+                selectYear:true,
+                defaultYear:2000,
+                changeCallback:null
+            };
+            _this = ele;
+            option = $.extend({},defineOpt,opt);
+            init(getTime('year'));
+        };
+
+
+
+        /**
+         * 渲染日历
+         * @param year
+         */
+        var renderDate = function (year) {
+            var $html = $('<ul class="h_month_outer"></ul>');
+            for(var i = 1; i <= 12; i++){
+                var month = $('<li><p class="h_month">'+ i +' 月</p></li>');
+                var day =   $('<ul class="h_day_outer"></ul>');
+                var length = getDay(year, i);
+                for(var l = 1; l <= length; l++){
+                    day.append(dayList(year, i, l))
+                }
+                month.append(day);
+                $html.append(month);
+            }
+            _this.append(HTML.empty().append($html));
+            _this.append('<div class="h_btn_s"></div>')
+        };
+
+
+
+        /**
+         * 渲染每个月的天数 并且储存
+         * @param month
+         * @param year
+         * @param day
+         * @return {*}
+         */
+        var dayList = function (year, month, day) {
+            var timestr = year + '-' + month + '-'+ day;
+            var $html = $('<li class="h_day '+ ($.inArray(timestr, checked) !==-1 ? "active":"") +'" >'+ day +'日 <input type="hidden" value="'+ timestr +'"></li>');
+            dateList[timestr] = $html;
+            return $html;
+        };
+
+
+
+        /**
+         * 获取指定年的每个月有多少天
+         * @param month
+         * @param year
+         * @return {*}
+         */
+        var getDay = function (year, month) {
+            month   = Number(month);
+            year    = Number(year);
+            var list12 = [1,3,5,7,8,10,12];
+            if( $.inArray(month, list12) !== -1){
+                return 31
+
+            }else if(month === 2 || month === '2'){
+                if((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0){
+                    return 29
+                }else{
+                    return 28
+                }
+
+            }else{
+                return 30
+
+            }
+        };
+
+
+
+
+        /**
+         * 获取指定日期的 年/月/日
+         * @param str
+         * @param time
+         * @return {*}
+         */
+        var getTime = function (str, time) {
+            var year = time ? new Date(time).getFullYear() : new Date().getFullYear();
+            var moth = time ? new Date(time).getMonth+1 : new Date().getMonth+1;
+            var date = time ? new Date(time).getDate() : new Date().getDate();
+            switch (str) {
+                case 'year':{
+                    return year;
+                }
+                case 'moth':{
+                    return moth;
+                }
+                case 'date':{
+                    return date;
+                }
+                default:{
+                    return year + '-' + moth + '-' + date;
+                }
+            }
+        };
+
+
+
+
+        /**
+         * 对数组添加
+         * @param ary   要操作的数组
+         * @param id    添加的值
+         */
+        function addAry(ary, id) {
+            ary.push(id);
+        }
+
+
+
+        /**
+         * 对数组删除
+         * @param ary   要操作的数组
+         * @param id    删除的值
+         */
+        function spliceAry(ary, id) {
+            var item = $.inArray(id, ary);
+            if (-1 !== item) {
+                ary.splice(item, 1)
+            }
+        }
+
+
+
+        function  sortTime(ary) {
+            if($.isArray(ary)){
+                ary.sort(function (a,b) {
+                    return (new Date(a)-new Date(b))
+                })
+            }else{
+                Object.keys(ary).sort(function(a,b){
+                    return (new Date(a)-new Date(b))
+                })
+            }
+            return ary;
+        }
+
+
+
+        /**
+         *
+         *
+         *
+         */
+        function clickInit() {
+
+            for(var k in dateList){
+                ~function (k) {
+                    if(dateList[k] == null) return;
+                    dateList[k].click(function () {
+                        if(selectMore){
+                            if(cheAry.length === 0){
+                                if(!$(this).hasClass('active')){
+                                    $(this).addClass('active');
+                                    addAry(checked,k);
+                                    isCheck = true;
+                                    console.log(1);
+                                }else{
+
+                                    $(this).removeClass('active');
+                                    spliceAry(checked,k);
+                                    isCheck = false
+                                }
+                                cheAry.push(k)
+                            }else{
+                                cheAry.push(k);
+                                Multiselect(sortTime(cheAry),isCheck);
+                                cheAry =    [];
+                                isCheck = true;
+                            }
+                        }else{
+                            cheAry =    [];
+                            isCheck = true;
+                            if($(this).hasClass('active')){
+                                $(this).removeClass('active');
+                                spliceAry(checked,k)
+                            }else{
+                                $(this).addClass('active');
+                                addAry(checked,k)
+                            }
+                        }
+                        $.isFunction(option.changeCallback) ? option.changeCallback(sortTime(checked)) : null
+                    })
+                }(k)
+            }
+        }
+
+
+
+        /**
+         *
+         *
+         */
+        function Multiselect(ary,isCheck) {
+            var first = ary[0];
+            var last =  ary[1];
+            for(var k in dateList){
+                if(new Date(last) < new Date(k)) break;
+                if(new Date(first) <= new Date(k)){
+                    if(isCheck){
+                        if(!$.inArray(k, checked) !== -1){
+                            if(dateList[k])
+                                dateList[k].addClass('active');
+                            addAry(checked,k)
+                        }
+                    }else{
+                        if($.inArray(k, checked) !== -1){
+                            if(dateList[k])
+                                dateList[k].removeClass('active');
+                            spliceAry(checked,k)
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+        /**
+         *
+         *
+         */
+        function slidebarInit() {
+
+            var $leftBar = $('<span class="h_leftBar"><span></span></span>');
+            var $rightBar = $('<span class="h_rightBar"><span></span></span>');
+            $leftBar.click(function () {
+                if(side === 0) return;
+                HTML.find('.h_month_outer').css({'transform':'translateX(-'+ (--side * 8.3333333333) +'%)'})
+            });
+            $rightBar.click(function () {
+                if(side === 11) return;
+                HTML.find('.h_month_outer').css({'transform':'translateX(-'+ (++side * 8.3333333333) +'%)'})
+            });
+            $(_this).append($leftBar);
+            $(_this).append($rightBar);
+        }
+
+
+
+
+        /**
+         *
+         *
+         */
+        function selectBtn() {
+            var $btn = $('<span class="h_btn def selectBtn">选择时间段</span>');
+            $btn.click(function () {
+                if($(this).hasClass('active')){
+                    $(this).removeClass('active').text('切换时间段');
+                    selectMore = false;
+                }else{
+                    $(this).addClass('active').text('切换单选时间');
+                    selectMore = true;
+                }
+            });
+            _this.find('.h_btn_s').append($btn)
+        }
+
+
+
+
+        function clearBtn() {
+            var $btn = $('<span class="h_btn def selectBtn">清空</span>');
+            $btn.click(function () {
+                if(checked.length === 0) return;
+                for(var k in dateList){
+                    if(dateList[k])
+                        dateList[k].removeClass('active')
+                }
+                checked =   [];
+                cheAry =    [];
+                $.isFunction(option.changeCallback) ? option.changeCallback(sortTime(checked)) : null
+            });
+            _this.find('.h_btn_s').append($btn)
+        }
+
+
+
+
+
+
+
+        function selectYear() {
+            var $selectYear = $('<span class="h_selectYear"></span>');
+            $selectYear.append(function () {
+                var html = '<select>';
+                for(var i = option.defaultYear;i <= getTime('year');i++){
+                    html += '<option value="'+ i +'" '+ (getTime('year') == i ? "selected" : "") +'>'+ i +' 年</option>'
+                }
+                html+='</select>';
+                return html;
+            });
+            $selectYear.find('select').change(function () {
+                side = 0;
+                renderDate($(this).val());
+                clickInit();
+            });
+            _this.append($selectYear);
+
+        }
+
+
+
+        function s(s,e) {
+            for(var i=s;i <= e;i++){
+                for(var a=1;a<=12;a++){
+                    for(var b = 1;b<=31;b++){
+                        var da = i+'-'+a+'-'+b;
+                        dateList[da] = null;
+                    }
+                }
+            }
+        }
+
+
+
+
+        /**
+         * 初始化
+         * @param year
+         */
+        var init = function (year) {
+            s(option.defaultYear, getTime('year'));
+            renderDate(year);
+            clickInit();
+            option.slideBar ?   slidebarInit() : null;
+            // 按钮
+            option.selectMore ? selectBtn()     : null;
+            clearBtn();
+            // 多选年
+            option.selectYear ? selectYear()    : null;
+        };
+
+        //
+        H_date.prototype.setCheck = function (ary,year) {
+            side = 0;
+            checked = ary;
+            _this.find('.h_selectYear select').val(year);
+            renderDate(year);
+            clickInit();
+        };
+
+
+
+
+
+        $.fn.h_date = function (opt) {
+            this.css({position:'relative'});
+            return  new H_date(this, opt);
+        }
+    })()
+
+</script>
+</html>
