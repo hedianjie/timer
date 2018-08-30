@@ -174,4 +174,16 @@
 	    </section>
     </div>
 </body>
+<script type="text/javascript" src=./jquery.min.js""></script>
+<script type="text/javascript">
+    $.ajax({
+        url: '/api',
+        data: {},
+        type: 'POST',
+        dataType: 'json',
+        success: function(result){console.log(result)},
+        error: function(err){console.log(err)},
+    })
+
+</script>
 </html>
