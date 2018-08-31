@@ -5,6 +5,6 @@ const url = require('url');
 http.createServer(function(req, res){
 	const path = url.parse(req.url, true);
 	console.log(req.method, path)
-	res.send();
+	res.end();
 }).listen(8081);
 
